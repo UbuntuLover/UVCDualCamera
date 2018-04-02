@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="触摸屏幕来选择画面" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.serenegiant.widget.UVCCameraTextureView
+                    android:id="@+id/camera_view_by_Alex_L"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+
+                <com.gjiazhe.multichoicescirclebutton.MultiChoicesCircleButton
+                    android:id="@+id/circle_button_L"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:mccb_collapseRadius="35dp"
+                    app:mccb_expandRadius="100dp"
+                    app:mccb_icon="@drawable/plus"
+                    app:mccb_text="功能" />
+
+
+            </FrameLayout>
+            <!--<Button-->
+            <!--android:id="@+id/test"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="hahahha"/>-->
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:src="#fff" />
+
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1">-->
+
+                <!--<com.serenegiant.widget.UVCCameraTextureView-->
+                    <!--android:id="@+id/camera_view_by_Alex_R"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent" />-->
+
+                <!--<com.gjiazhe.multichoicescirclebutton.MultiChoicesCircleButton-->
+                    <!--android:id="@+id/circle_button_R"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--app:mccb_collapseRadius="35dp"-->
+                    <!--app:mccb_expandRadius="100dp"-->
+                    <!--app:mccb_icon="@drawable/plus"-->
+                    <!--app:mccb_text="Choose" />-->
+
+
+            <!--</FrameLayout>-->
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
