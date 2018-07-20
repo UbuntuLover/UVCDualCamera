@@ -25,8 +25,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion versionCompiler
-    buildToolsVersion versionBuildTool
-
+   // buildToolsVersion versionBuildTool
+    buildToolsVersion '27.0.3'
     compileOptions {
         sourceCompatibility javaSourceCompatibility
         targetCompatibility javaTargetCompatibility
@@ -38,6 +38,7 @@ android {
         targetSdkVersion versionTarget
         versionCode 9
         versionName "3.00"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -48,13 +49,14 @@ android {
     }
     compileOptions {
     }
+
 }
 
 dependencies {
-    compile project(':usbCameraCommon')
-    compile 'io.reactivex:rxjava:1.1.0'
-    compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'com.gjiazhe:MultiChoicesCircleButton:1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation project(':usbCameraCommon')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    implementation 'io.reactivex:rxjava:1.1.0'
+    implementation 'io.reactivex:rxandroid:1.1.0'
+    implementation 'com.gjiazhe:MultiChoicesCircleButton:1.0'
 
 }

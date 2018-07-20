@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~  UVCCamera
   ~  library and sample to access to UVC web camera on non-rooted Android device
   ~
@@ -22,13 +21,13 @@
   ~  may have a different license, see the respective files.
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/RelativeLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#000000"
-                tools:context="com.serenegiant.usbcameratest3.MainActivity"
-                tools:ignore="MergeRootFrame">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="com.serenegiant.usbcameratest3.MainActivity"
+    tools:ignore="MergeRootFrame">
 
     <TextView
         android:id="@+id/textView1"
@@ -38,7 +37,7 @@
         android:gravity="center"
         android:text="触摸来选择摄像头"
         android:textColor="#ffffff"
-        android:textSize="25sp"/>
+        android:textSize="25sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,17 +58,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="605dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
             <ImageView
                 android:id="@+id/frame_image_L"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignBottom="@id/camera_view_L"
                 android:layout_alignLeft="@+id/camera_view_L"
                 android:layout_alignRight="@+id/camera_view_L"
-                android:scaleType="fitXY"
-
-                android:src="@drawable/border"/>
+                android:layout_alignTop="@id/camera_view_L"
+                android:src="@drawable/border" />
 
             <ImageButton
                 android:id="@+id/capture_button_L"
@@ -80,7 +79,7 @@
                 android:layout_marginBottom="6dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_camera"/>
+                android:src="@android:drawable/ic_menu_camera" />
 
             <Button
                 android:id="@+id/shot_L"
@@ -89,7 +88,7 @@
                 android:layout_alignBottom="@id/camera_view_L"
                 android:layout_marginBottom="6dp"
                 android:layout_toLeftOf="@id/capture_button_L"
-                android:text="拍照"/>
+                android:text="拍照" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -103,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
             <ImageView
                 android:id="@+id/frame_image_R"
@@ -113,7 +112,7 @@
                 android:layout_alignLeft="@+id/camera_view_R"
                 android:layout_alignRight="@+id/camera_view_R"
                 android:layout_alignTop="@+id/camera_view_R"
-                android:src="@drawable/border"/>
+                android:src="@drawable/border" />
 
             <ImageButton
                 android:id="@+id/capture_button_R"
@@ -124,7 +123,7 @@
                 android:layout_marginBottom="6dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_camera"/>
+                android:src="@android:drawable/ic_menu_camera" />
 
             <Button
                 android:id="@+id/shot_R"
@@ -133,7 +132,7 @@
                 android:layout_alignBottom="@id/camera_view_R"
                 android:layout_marginBottom="6dp"
                 android:layout_toStartOf="@id/capture_button_R"
-                android:text="拍照"/>
+                android:text="拍照" />
         </RelativeLayout>
     </LinearLayout>
 
