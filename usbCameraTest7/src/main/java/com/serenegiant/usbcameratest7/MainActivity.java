@@ -23,6 +23,8 @@
 
 package com.serenegiant.usbcameratest7;
 
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.hardware.usb.UsbDevice;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ import android.widget.Toast;
 
 import com.sensetime.senseid.facepro.jniwrapper.library.ActiveResult;
 import com.sensetime.senseid.facepro.jniwrapper.library.BinocularResult;
+import com.sensetime.senseid.facepro.jniwrapper.library.DetectResult;
 import com.sensetime.senseid.facepro.jniwrapper.library.FaceLibrary;
 import com.serenegiant.common.BaseActivity;
 import com.serenegiant.usb.CameraDialog;
@@ -50,6 +53,7 @@ import com.serenegiant.usb.UVCCamera;
 import com.serenegiant.usbcameracommon.AbstractUVCCameraHandler;
 import com.serenegiant.usbcameracommon.UVCCameraHandler;
 import com.serenegiant.widget.CameraViewInterface;
+import com.serenegiant.widget.FaceDrawerView;
 import com.serenegiant.widget.UVCCameraTextureView;
 
 import java.io.BufferedReader;
@@ -59,6 +63,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,7 +78,7 @@ import java.util.List;
 public final class MainActivity extends BaseActivity implements CameraDialog.CameraDialogParent {
     private static final boolean DEBUG = true;    // FIXME set false when production
     private static final String TAG = "MainActivity";
-    //带宽因子
+    //band factors
     private static final float[] BANDWIDTH_FACTORS = {1.0f, 1.0f};
 
 
@@ -94,6 +99,10 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 
     private static int FLAG_L = 0;
     private static int FLAG_R = 0;
+
+    private FaceDrawerView mFaceDrawerViewL;
+    private FaceDrawerView mFaceDrawerViewR;
+
 
     private FaceLibrary mLibrary;
     private TrackThread mTrackThread;
@@ -120,7 +129,9 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
             public void onValueChanged() {
                 if (FLAG_L == 1 && FLAG_R == 1) {
                     Log.d(TAG, "onValueChanged: ");
+                    mTrackThread.mIsExit = false;
                     mTrackThread.start();
+
                 }
             }
         });
@@ -152,6 +163,9 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 
         mUSBMonitor = new USBMonitor(this, mOnDeviceConnectListener);
         mTrackThread = new TrackThread();
+
+        mFaceDrawerViewL = findViewById(R.id.face_drawer_L);
+        mFaceDrawerViewR = findViewById(R.id.face_drawer_R);
 
 
         mHandlerR.addCallback(new AbstractUVCCameraHandler.CameraCallback() {
@@ -269,6 +283,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
         if (mUVCCameraViewL != null) mUVCCameraViewL.onPause();
         mCaptureButtonL.setVisibility(View.INVISIBLE);
         mUSBMonitor.unregister();
+        mUSBMonitor.destroy();
         Log.i(TAG, "onStop: ");
         super.onStop();
     }
@@ -291,7 +306,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
         mCaptureButtonL = null;
         Log.i(TAG, "onDestroy: ");
         if (mTrackThread != null) {
-
+            mTrackThread.mIsExit = true;
             mTrackThread.exit();
         }
         mTrackThread = null;
@@ -317,11 +332,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
                                 }
                                 mUSBMonitor.processConnect(deviceList.get(0));
                             }
-//					CameraDialog.showDialog(MainActivity.this);
                         }
-
-//
-
                     }
                     break;
                 case R.id.capture_button_L:
@@ -710,6 +721,8 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
                     }
                     mRgbImageData.clear();
                 }
+
+                drawFaceRectOnPreview(trackResults);
             }
 
             //destroy handle.
@@ -763,6 +776,48 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
             return FaceLibrary.ST_OK;
         }
 
+        private void drawFaceRectOnPreview(BinocularResult result) {
+            final List<Rect> rgbFaceRects = new ArrayList<>();
+            for (DetectResult results : result.getRgbResults()) {
+                rgbFaceRects.add(results.getRect());
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mFaceDrawerViewL.drawFaces(fixFaceRectsForScreen(rgbFaceRects),
+                            mHandlerL.getWidth(), mHandlerL.getHeight(), Color.GREEN);
+                }
+            });
+
+            final List<Rect> infraredFaceRect = new ArrayList<>();
+            for (DetectResult result1 : result.getInfraredResults()) {
+                infraredFaceRect.add(result1.getRect());
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mFaceDrawerViewR.drawFaces(fixFaceRectsForScreen(infraredFaceRect),
+                            mHandlerR.getWidth(), mHandlerR.getHeight(), Color.GREEN);
+                }
+            });
+        }
+
+        private List<Rect> fixFaceRectsForScreen(List<Rect> faceRects) {
+            if (faceRects == null || faceRects.isEmpty()) {
+                return null;
+            }
+            List<Rect> fixedRects = new ArrayList<>();
+            for (Rect rect : faceRects) {
+                Rect fixRect = fixRectForScreen(rect);
+                fixedRects.add(fixRect);
+            }
+            return fixedRects;
+        }
+
+        private Rect fixRectForScreen(Rect rect) {
+            return new Rect(rect.top, rect.left, rect.bottom, rect.right);
+        }
+
 
     }
 
@@ -798,4 +853,9 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
     }
 
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }

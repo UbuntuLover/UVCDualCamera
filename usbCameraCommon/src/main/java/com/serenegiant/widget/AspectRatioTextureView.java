@@ -93,7 +93,7 @@ public class AspectRatioTextureView extends TextureView    // API >= 14
 
             if (Math.abs(aspectDiff) > 0.01) {
                 Log.d(TAG, "onMeasure: aspectDiff >0.01 and value is" + aspectDiff);
-                if (aspectDiff > 0) {
+              if (aspectDiff > 0) {
                     // width priority decision
                     Log.d(TAG, "onMeasure: width priority decision");
                     initialHeight = (int) (initialWidth / mRequestedAspect);

@@ -26,18 +26,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="com.serenegiant.usbcameratest3.MainActivity"
     tools:ignore="MergeRootFrame">
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f40909"
+        android:background="#0d2c30"
         android:gravity="center"
-        android:text="触摸来选择摄像头"
-        android:textColor="#ffffff"
-        android:textSize="25sp" />
+        android:text="点击左侧和右侧来打开摄像头"
+        android:textColor="#d99898"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,15 +59,14 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
 
-            <ImageView
-                android:id="@+id/frame_image_L"
+            <com.serenegiant.widget.FaceDrawerView
+                android:id="@+id/face_drawer_L"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@id/camera_view_L"
                 android:layout_alignLeft="@+id/camera_view_L"
                 android:layout_alignRight="@+id/camera_view_L"
-                android:layout_alignTop="@id/camera_view_L"
-                android:src="@drawable/border" />
+                android:layout_alignTop="@id/camera_view_L" />
 
             <ImageButton
                 android:id="@+id/capture_button_L"
@@ -91,6 +89,11 @@
                 android:text="拍照" />
         </RelativeLayout>
 
+        <View
+            android:background="#ef0346"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"/>
+
         <RelativeLayout
             android:id="@+id/camera_layout_R"
             android:layout_width="wrap_content"
@@ -104,15 +107,14 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
 
-            <ImageView
-                android:id="@+id/frame_image_R"
+            <com.serenegiant.widget.FaceDrawerView
+                android:id="@+id/face_drawer_R"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/camera_view_R"
                 android:layout_alignLeft="@+id/camera_view_R"
                 android:layout_alignRight="@+id/camera_view_R"
-                android:layout_alignTop="@+id/camera_view_R"
-                android:src="@drawable/border" />
+                android:layout_alignTop="@+id/camera_view_R" />
 
             <ImageButton
                 android:id="@+id/capture_button_R"

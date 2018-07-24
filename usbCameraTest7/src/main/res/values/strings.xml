@@ -22,5 +22,5 @@
   ~  may have a different license, see the respective files.
   -->
 <resources>
-    <string name="app_name">双目摄像头</string>
+    <string name="app_name">双目人脸识别</string>
 </resources>

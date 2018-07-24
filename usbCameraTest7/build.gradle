@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation project(":alextaohelper")
     implementation project(':usbCameraCommon')
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation 'io.reactivex:rxjava:1.1.0'
